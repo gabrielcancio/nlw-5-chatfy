@@ -1,4 +1,5 @@
 import express from "express";
+import "./database/connection";
 
 const app = express();
 
@@ -10,6 +11,16 @@ app.get("/", (request, response) => {
   };
 
   return response.json({ data });
+});
+
+app.post("/", (request, response) => {
+  const { name } = request.body;
+
+  if (!name) {
+    return response.status(400).json({ error: "Name is a riquered field!!" });
+  }
+
+  return response.status(201).send();
 });
 
 app.listen(3333, () =>
